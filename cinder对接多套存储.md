@@ -8,7 +8,7 @@
 
 使用volume-type来区分使用的存储，
 
-如果需要分别使用哪些存储，可以添加nova az和cinder az对应的配置
+<!--如果需要分别使用哪些存储，可以添加nova az和cinder az对应的配置,后面用到-->
 
 + cinder type-create scaleIO1
 + cinder type-key scaleIO1 set volume_backend_name=scaleIO1
