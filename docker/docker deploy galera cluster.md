@@ -93,11 +93,16 @@ mkdir /var/lib/docker_volume/mariadb{1,2,3}/{log,conf,data}
 2024-12-13 10:02:19 0 [ERROR] WSREP: It may not be safe to bootstrap the cluster from this node. It was not the last one to leave the cluster and may not contain all the updates. To force cluster bootstrap with this node, edit the grastate.dat file manually and set safe_to_bootstrap to 1 .
 2024-12-13 10:02:19 0 [ERROR] WSREP: wsrep::connect(gcomm://192.168.126.100:4567,192.168.126.100:4568,192.168.126.100:4569) failed: 7
 2024-12-13 10:02:19 0 [ERROR] Aborting
+```
 
+修改节点为第一个启动的节点
+```
 sed -i "/safe_to_bootstrap/s/0/1/" /var/lib/docker_volume/mariadb1/data/grastate.dat
 docker rm --force mariadb1 mariadb2 mariadb2
-rm -rf /var/lib/docker_volume/mariadb*/data/*
+```
 
+配置文件准备
+```
 root@ubuntu-focal:~# cat /var/lib/docker_volume/mariadb1/conf/my.cnf        < <  这个文件名字竟然还不能错！
 [client]
 default-character-set = utf8
@@ -236,7 +241,7 @@ pid-file = /var/lib/mysql/mariadb.pid
 
 
 
-
+测试集群状态：
 ```
 root@ubuntu-focal:~# mysql -uroot -p123456 -h192.168.126.100 -P 3306 -e "SHOW STATUS LIKE 'wsrep_cluster%'"
 mysql: [Warning] Using a password on the command line interface can be insecure.
