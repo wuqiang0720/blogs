@@ -97,9 +97,7 @@ mkdir /var/lib/docker_volume/mariadb{1,2,3}/{log,conf,data}
 sed -i "/safe_to_bootstrap/s/0/1/" /var/lib/docker_volume/mariadb1/data/grastate.dat
 docker rm --force mariadb1 mariadb2 mariadb2
 rm -rf /var/lib/docker_volume/mariadb*/data/*
-```
 
-```
 root@ubuntu-focal:~# cat /var/lib/docker_volume/mariadb1/conf/my.cnf        < <  这个文件名字竟然还不能错！
 [client]
 default-character-set = utf8
