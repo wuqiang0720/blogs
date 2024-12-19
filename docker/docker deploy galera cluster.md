@@ -6,6 +6,7 @@ Mariadb version：10.5
 ```
 docker pull swr.cn-north-4.myhuaweicloud.com/ddn-k8s/docker.io/mariadb
 给官方镜像导入healcheck 脚本
+
 ```
 root@ubuntu-focal:~/dockerfile_for_mariadb# docker images
 REPOSITORY                                                           TAG       IMAGE ID       CREATED        SIZE
@@ -24,7 +25,6 @@ FROM dcabc65a803e
 COPY healthcheck_mariadb /usr/local/bin/healthcheck_mariadb
 RUN chmod +x /usr/local/bin/healthcheck_mariadb
 root@ubuntu-focal:~/dockerfile_for_mariadb# docker build . -t ewuiaqx/mariadb:10.5
-
 ```
 2. 创建相关的文件夹，配置文件在后边
 mkdir /var/lib/docker_volume
