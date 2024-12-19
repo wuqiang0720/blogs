@@ -97,8 +97,9 @@ mkdir /var/lib/docker_volume/mariadb{1,2,3}/{log,conf,data}
 sed -i "/safe_to_bootstrap/s/0/1/" /var/lib/docker_volume/mariadb1/data/grastate.dat
 docker rm --force mariadb1 mariadb2 mariadb2
 rm -rf /var/lib/docker_volume/mariadb*/data/*
+```
 
-
+```
 root@ubuntu-focal:~# cat /var/lib/docker_volume/mariadb1/conf/my.cnf        < <  这个文件名字竟然还不能错！
 [client]
 default-character-set = utf8
@@ -233,8 +234,12 @@ innodb_print_all_deadlocks = ON
 pid-file = /var/lib/mysql/mariadb.pid
 
 [sst]
- 
-----------
+``` 
+
+
+
+
+```
 root@ubuntu-focal:~# mysql -uroot -p123456 -h192.168.126.100 -P 3306 -e "SHOW STATUS LIKE 'wsrep_cluster%'"
 mysql: [Warning] Using a password on the command line interface can be insecure.
 +----------------------------+--------------------------------------+
