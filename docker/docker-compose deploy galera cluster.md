@@ -25,7 +25,7 @@ services:
        --wsrep_on=ON
        --wsrep_provider="/usr/lib/galera/libgalera_smm.so"
        --wsrep_cluster_address=gcomm://192.168.126.100:4567,192.168.126.100:4568,192.168.126.100:4569
-       #       --wsrep-new-cluster
+       #  --wsrep-new-cluster
 
   mariadb2:
       image: ewuiaqx/mariadb:10.5
@@ -33,7 +33,7 @@ services:
       network_mode: "host"
       restart: unless-stopped
       # depends_on:
-      #        - mariadb1
+      #  - mariadb1
       environment:
           - MARIADB_ROOT_PASSWORD=123456
           - WSREP_CLUSTER_NAME=Galera_Cluster
@@ -92,3 +92,12 @@ services:
         -  /var/lib/docker_volume/haproxy/log:/var/log/haproxy
         -  /var/lib/docker_volume/haproxy/conf:/usr/local/etc/haproxy
 ```
+如果不需要haproxy 去掉配置即可然后运行下面命令启动容器
+docker-compose up -d
+
+删除容器命令：
+docker-compose down
+
+查看logs命令：
+docker-compose logs -f [container-name]
+
