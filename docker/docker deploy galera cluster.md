@@ -82,7 +82,7 @@ mkdir /var/lib/docker_volume/mariadb{1,2,3}/{log,conf,data}
        --wsrep_on=ON \
        --wsrep_provider="/usr/lib/galera/libgalera_smm.so"  \
        --wsrep_cluster_address=gcomm://192.168.126.100:4567,192.168.126.100:4568,192.168.126.100:4569 
-
+```
 
 第二次重启的话需要在master上做如下的操作：否则报错如下
 
