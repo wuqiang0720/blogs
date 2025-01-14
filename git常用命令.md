@@ -46,6 +46,9 @@ git reset --hard commit-id     退到/进到 指定commit的id码
     $ git config --global http.proxy http://xxxxxxxxx:8888
     
     $ git config --global https.proxy http://xxxxx:8888
+    
+    $ git config --get  https.proxy
+    
     ```
     
     
