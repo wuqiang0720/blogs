@@ -1,1 +1,0 @@
-![P](C:\Users\ewuiaqx\OneDrive - Ericsson\Pictures\联通路由器IP.png)
