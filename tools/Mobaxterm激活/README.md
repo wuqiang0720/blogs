@@ -30,7 +30,7 @@ Usage:
 EXAMPLE:
 
 ```
-PS C:\Users\DoubleSine\Github\MobaXterm-Keygen> .\MobaXterm-Keygen.py "Qiang Wu" 24.0
+PS C:\Users\Qiang Wu\Github\MobaXterm-Keygen> .\MobaXterm-Keygen.py "Qiang Wu" 24.0
 [*] Success!
 [*] File generated: C:\Users\Qiang Wu\Github\MobaXterm-Keygen\Custom.mxtpro
 [*] Please move or copy the newly-generated file to MobaXterm's installation path.
