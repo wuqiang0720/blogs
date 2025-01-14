@@ -60,7 +60,10 @@ PCAP is disabled by default in DPDK configuration. CONFIG_RTE_LIBRTE_PMD_PCAP an
 #dpdk/config/common_base
 CONFIG_RTE_LIBRTE_PMD_PCAP=y...CONFIG_RTE_PORT_PCAP=y
 Compile DPDK with target environment.
+
+
+
 $cd dpdk
 $export RTE_SDK=$(pwd)$export RTE_TARGET=x86_64-native-linuxapp-gcc  # depends on your env$make install T=$RTE_TARGET
 
-From <https://doc.dpdk.org/spp/setup/getting_started.html> 
+> From <https://doc.dpdk.org/spp/setup/getting_started.html> 
