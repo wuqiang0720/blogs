@@ -1,4 +1,4 @@
-```
+```bash
 root@ubuntu-focal:~# virsh destroy vm-name
 root@ubuntu-focal:~# modprobe nbd
 root@ubuntu-focal:~# lsblk -l /dev/nbd0
