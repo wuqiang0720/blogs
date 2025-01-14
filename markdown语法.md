@@ -1,62 +1,56 @@
-### 使用 # 号标记
-使用 # 号可表示 1-6 级标题，一级标题对应一个 # 号，二级标题对应两个 # 号，以此类推。
-`# 一级标题`
-`## 二级标题`
-`### 三级标题`
-`#### 四级标题`
-`##### 五级标题`
-`###### 六级标题`
+[基本语法](https://markdown.com.cn/basic-syntax/) <br> [扩展语法](https://markdown.com.cn/extended-syntax/) <br> [表情包](https://gist.github.com/rxaviers/7360908):blush: :white_check_mark: :heavy_check_mark:  :ballot_box_with_check:
 
-### 字体
-Markdown 可以使用以下几种字体：
+### 基本语法 :white_check_mark:
+---
+这些是 John Gruber 的原始设计文档中列出的元素。所有 Markdown 应用程序都支持这些元素。
+| 元素          | Markdown 语法 |
+| ------------ | ------------ |
+| 标题（Heading）| # H1 <br> ## H2 <br> ### H3|
+| 粗体（Bold）   | \*\*bold text\*\*        |
+| 斜体（Italic） |  \*italicized text\*      |
+|引用块（Blockquote）|> blockquote  |
+|有序列表（Ordered List）|1. First item <br> 2. Second item <br> 3. Third item |
+|无序列表（Unordered List）|- First item <br>  - Second item <br> - Third item|
+|代码（Code）|\`code\`|
+|分隔线（Horizontal Rule）|---|
+|链接（Link）|\[title\](https://www.example.com)|
+|图片（Image）	|\!\[alt text\](image.jpg)|
 
-`*斜体文本*`
-`_斜体文本_`
-`**粗体文本**`
-`__粗体文本__`
-`***粗斜体文本***`
-`___粗斜体文本___`
+### 扩展语法 :white_check_mark:
+---
+这些元素通过添加额外的功能扩展了基本语法。但是，并非所有 Markdown 应用程序都支持这些元素。
 
-### 分隔线
-你可以在一行中用三个以上的星号、减号、底线来建立一个分隔线，行内不能有其他东西。你也可以在星号或是减号中间插入空格。下面每种写法都可以建立分隔线：
-`***`
-`* * *`
-`*****`
-`- - -`
-`----------`
-### __删除线__
-如果段落上的文字要添加删除线，只需要在文字的两端加上两个波浪线 ~~ 即可，实例如下：
+| 元素          | Markdown 语法 |
+| ------------ | ------------ |
+|表格（Table）| \| Syntax      \| Description \| <br> \| ----------- \| ----------- \| <br> \| Header      \|  Title       \| <br> \| Paragraph   \| Text        \| |
+|代码块（Fenced Code Block）| \`\`\`<br> { <br>   "firstName": "John", <br> "lastName": "Smith", <br> "age": 25 <br> }<br> \`\`\`|
+|脚注（Footnote）|Here's a sentence with a footnote. [^1] <br> [^1]: This is the footnote.|
+|标题编号（Heading ID）|### My Great Heading \{#custom-id}|
+|定义列表（Definition List）|term<br>: definition|
+|删除线（Strikethrough）|\~~The world is flat.~~|
+|任务列表（Task List）|- [x] Write the press release<br>- [ ] Update the website<br>- [ ] Contact the media|
 
+### 代码块缩进&换行 :white_check_mark:
+---
+*代码块的三个点需要前后对齐*  
+Ctrl :heavy_plus_sign:  ]   :arrow_forward:  整体右移;  
+Ctrl :heavy_plus_sign:  [   :arrow_forward:  整体左移；  
+`<br>`或者结尾双空格都可以换行。
 
+### 字体颜色 不支持 :negative_squared_cross_mark:
+---
+<font face="逐浪新宋">我是逐浪新宋</font>  
+<font face="逐浪圆体">我是逐浪圆体</font>  
+<font face="逐浪花体">我是逐浪花体</font>  
+<font face="逐浪像素字">我是逐浪像素字</font>  
+<font face="逐浪立楷">我是逐浪立楷</font>  
+<font color=red>我是红色</font>  
+<font color=#008000>我是绿色</font>  
+<font color=yellow>我是黄色</font>  
+<font color=Blue>我是蓝色</font>  
+<font color= #871F78>我是紫色</font>  
+<font color= #DCDCDC>我是浅灰色</font>  
+<font size=5>我是尺寸</font>  
+<font size=10>我是尺寸</font>  
+<font face="逐浪立楷" color=green size=10>我是逐浪立楷，绿色，尺寸为5</font>
 
-`~~BAIDU.COM~~`
-效果如下：
-~~BAIDU.COM~~
-
-### __Markdown 列表__
-Markdown 支持有序列表和无序列表。
-
-无序列表使用星号(*)、加号(+)或是减号(-)作为列表标记，这些标记后面要添加一个<font color=#008000 >空格</font>，然后再填写内容：
-### __Markdown 代码__
-- 代码区块使用 4 个空格或者一个制表符（Tab 键）
-
-### __MarkdowMarkdown 图片语法格式__
-```
-![alt 属性文本](图片地址)
-
-![alt 属性文本](图片地址 "可选标题")
-```
-开头一个感叹号 !
-接着一个方括号，里面放上图片的替代文字
-接着一个普通括号，里面放上图片的网址，最后还可以用引号包住并加上选择性的 'title' 属性的文字。
-```
-![QIANG 图标](https://github.com/qiangwum/blogs/blob/main/demo.png)
-![QIANG 图标](https://github.com/qiangwum/blogs/blob/main/demo.png "Qiang")
-```
-[![7SOeoD.png](https://s4.ax1x.com/2022/01/07/7SOeoD.png)](https://imgtu.com/i/7SOeoD)
-
-### __Markdown 链接__
-链接使用方法如下：
-`[链接名称](链接地址)`
-
-截图工具[xsnip_1.1.0.4.zip](https://github.com/qiangwum/blogs/files/7818733/xsnip_1.1.0.4.zip)
