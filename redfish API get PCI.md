@@ -21,12 +21,10 @@ FunctionNumber = 1
 DeviceNumber = 0
 BusNumber = 131
 ```
-`(这里查到的是10进制数，pci采用的是16进制需要转换一下)`
->[shell数制转换](https://github.com/wuqiang0720/blogs/blob/main/linux/shell%20%E6%95%B0%E5%88%B6%E8%BD%AC%E6%8D%A2.md)
-```bash
-root@ubuntu-focal:~# printf '%x\n' 131 //将131转换为16进制
-83
-```
+> [!NOTE]
+> 这里查到的是10进制数，pci采用的是16进制需要转换一下。
+> [SHELL数制转换](https://github.com/wuqiang0720/blogs/blob/main/linux/shell%20%E6%95%B0%E5%88%B6%E8%BD%AC%E6%8D%A2.md)
+> root@ubuntu-focal:~# printf '%x\n' 131 //OUTPUT是 83 
 
 那么上面的信息转换为PCI地址就是:<br>
 ```
