@@ -39,3 +39,6 @@ PS C:\Users\DoubleSine\Github\MobaXterm-Keygen> .\MobaXterm-Keygen.py "Qiang Wu"
 
 
 Then copy `Custom.mxtpro` to `C:\Program Files (x86)\Mobatek\MobaXterm`.
+
+
+![已经激活了的效果](https://github.com/wuqiang0720/PicGo_img/blob/master/mobaxterm%20for%20qiangwu.png)
