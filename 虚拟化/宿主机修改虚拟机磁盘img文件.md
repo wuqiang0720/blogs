@@ -7,8 +7,9 @@
 ```
 [ubuntu@root ~]$ sudo passwd --status root
 root L 08/13/2024 -1 -1 -1 -1
+[ubuntu@root ~]$ sudo cat /etc/passwd | grep root
+root:x:0:0:root:/root:/bin/bash
 ```
-
 
 
 
@@ -47,4 +48,19 @@ root@ubuntu-focal:~# qemu-nbd --disconnect /dev/nbd0
 root@ubuntu-focal:~#
 
 root@ubuntu-focal:~# virsh start vm-name
+```
+
+
+
+```
+root@ubuntu-focal:~# man passwd
+root@ubuntu-focal:~# man shadow
+       -S, --status
+           Display account status information. The status information consists of 7 fields. The first field is the user's login name. The second field indicates if the user account has a locked
+           password (L), has no password (NP), or has a usable password (P). The third field gives the date of the last password change. The next four fields are the minimum age, maximum age,
+           warning period, and inactivity period for the password. These ages are expressed in days.
+
+       -u, --unlock
+           Unlock the password of the named account. This option re-enables a password by changing the password back to its previous value (to the value before using the -l option).
+
 ```
