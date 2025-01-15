@@ -51,11 +51,7 @@ Ctrl :heavy_plus_sign:  [   :arrow_forward:  整体左移；
 
 
 > [!NOTE]
-<<<<<<< HEAD
 > Useful information that users should know, even when skimming content.
-=======
-> Useful information that users should know, even when skimming content.  
->>>>>>> 0d7df29 (update git command)
 
 > [!TIP]
 > Helpful advice for doing things better or more easily.
