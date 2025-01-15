@@ -1,3 +1,18 @@
+> [!NOTE]
+> `Background:`   
+> 给虚拟机`/etc/sudoers` 添加audit log配置，但是文件权限不足，修改了文件权限，同时因为网络问题退出了session，从而不能sudo 到 root用户了！
+
+> [!TIP]
+> 事后我们查询root的密码是被锁的状态并且禁止root登录：
+```
+[ubuntu@root ~]$ sudo passwd --status root
+root L 08/13/2024 -1 -1 -1 -1
+```
+
+
+
+
+
 ```bash
 root@ubuntu-focal:~# virsh destroy vm-name
 root@ubuntu-focal:~# modprobe nbd
