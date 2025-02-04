@@ -1,4 +1,6 @@
-```
+`Usage: brctl addif <bridge> <device>    add interface to bridge`
+
+```bash
 Last login: Wed Jan 22 13:53:30 2025 from 192.168.126.1
 ubuntu@ubuntu:~$ ip a
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
@@ -205,5 +207,66 @@ ubuntu@ubuntu:~$ sudo ip link set br-fw-admin up
     inet6 fe80::1ccc:2cff:fedc:d468/64 scope link
        valid_lft forever preferred_lft forever
 ubuntu@ubuntu:~$ history
+
+```
+
+
+
+持久化
+```bash
+root@ubuntu:~# cat /etc/netplan/50-cloud-init.yaml
+# This file is generated from information provided by the datasource.  Changes
+# to it will not persist across an instance reboot.  To disable cloud-init's
+# network configuration capabilities, write a file
+# /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg with the following:
+# network: {config: disabled}
+network:
+    version: 2
+    ethernets:
+        eth1:
+            addresses: []
+            dhcp4: false
+            dhcp6: false
+        eth2:
+            addresses: []
+            dhcp4: false
+            dhcp6: false
+        eth0:
+            addresses:
+            - 192.168.126.100/24
+            nameservers:
+                addresses:
+                - 8.8.8.8
+                - 8.8.4.4
+                search: []
+            routes:
+            -   to: default
+                via: 192.168.126.1
+    version: 2
+    bonds:
+        bond0:
+            addresses:
+            - 10.243.3.195/22
+            interfaces:
+            - eth1
+            - eth2
+            parameters:
+                mode: 802.3ad
+                lacp-rate: fast
+    vlans:
+        bond0.4071:
+            id: 4071
+            link: bond0
+            addresses:
+            - 192.168.241.11/24
+            dhcp4: false
+    bridges:
+        br-fw-admin:
+          interfaces:
+          - bond0
+          addresses:
+          - 192.168.0.11/24
+
+root@ubuntu:~#
 
 ```
