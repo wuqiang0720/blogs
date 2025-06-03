@@ -1,4 +1,4 @@
-
+### Bulid docker image with dockerfile
 ```
 root@ubuntu:/home/ubuntu/dockerfile# ll
 total 16
@@ -6,74 +6,6 @@ drwxrwxr-x 2 ubuntu ubuntu 4096 Jun  2 08:08 ./
 drwxr-x--- 7 ubuntu ubuntu 4096 Jun  2 07:59 ../
 -rw-rw-r-- 1 ubuntu ubuntu 1423 Jun  2 08:08 dockerfile
 -rw-rw-r-- 1 ubuntu ubuntu  595 Jun  2 07:56 shadowsocks.json
-root@ubuntu:/home/ubuntu/dockerfile# cat *
-# Dockerfile for ShadowsocksR
-# https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocksR.sh
-
-FROM swr.cn-north-4.myhuaweicloud.com/ddn-k8s/docker.io/ubuntu:focal
-
-LABEL maintainer="Qiang Wu wuqiang07200@gmail.com>"
-
-# prepare
-RUN apt-get update \
-  && apt-get install -y procps \
-  && apt-get install -y wget \
-  && apt-get install -y vim \
-  && rm -rf /var/lib/apt/lists/* \
-  && export PATH=$PATH:/usr/local/bin:/usr/bin:/bin:/sbin:/usr/local/games:/usr/games
-
-# install ssr
-RUN cd /usr/local \
-  && mkdir ssr \
-  && cd ssr \
-  && wget --no-check-certificate https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocksR.sh \
-  && chmod +x shadowsocksR.sh \
-  && \n | ./shadowsocksR.sh 2>&1 | tee shadowsocksR.log \
-  && \n; exit 0
-
-# ssr configuration
-COPY shadowsocks.json /etc/
-
-# ssr script
-RUN cd /usr/local/ssr \
-  # fake log
-  && touch fake_log.log \
-  # start.sh
-  && touch start.sh \
-  && echo 'python /usr/local/shadowsocks/server.py -c /etc/shadowsocks.json -d start && tail -f /usr/local/ssr/fake_log.log' > start.sh \
-  && chmod 775 start.sh \
-  # stop.sh
-  && touch stop.sh \
-  && echo 'python /usr/local/shadowsocks/server.py -c /etc/shadowsocks.json -d stop' > stop.sh \
-  && chmod 775 stop.sh \
-  # restart.sh
-  && touch restart.sh \
-  && echo './stop.sh && ./start.sh' > restart.sh \
-  && chmod 775 restart.sh
-
-ENTRYPOINT ["sh", "/usr/local/ssr/start.sh"]
-{
-   "server":"0.0.0.0",
-   "server_ipv6":"[::]",
-   "local_address":"127.0.0.1",
-   "local_port":1080,
-   "port_password":{
-       "9000":"xxxxxx",
-       "9001":{"password":"xxxxxx", "protocol":"auth_chain_a", "obfs":"tls1.2_ticket_auth", "obfs_param":""},
-       "9002":{"password":"xxxxxx", "protocol":"auth_chain_a", "obfs":"tls1.2_ticket_auth", "obfs_param":""}
-       // ...
-   },
-   "timeout":120,
-   "method":"chacha20",
-   "protocol":"origin",
-   "protocol_param":"",
-   "obfs":"plain",
-   "obfs_param":"",
-   "redirect":"",
-   "dns_ipv6":false,
-   "fast_open":false,
-   "workers":1
-}
 root@ubuntu:/home/ubuntu/dockerfile# docker build -t ssr:v1 .
 [+] Building 174.3s (10/10) FINISHED                                                                                                                                             docker:default
  => [internal] load build definition from dockerfile                                                                                                                                       0.0s
