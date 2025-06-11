@@ -1,0 +1,32 @@
+heat_template_version: 2015-04-30
+description: Launch a VM
+resources:
+  my_vm:
+    type: OS::Nova::Server
+    properties:
+      name: ubuntu-volume-vm
+      flavor: ipw_SC_2_4
+      availability_zone: nova
+      user_data_format: RAW
+      key_name: ccdadm-key
+      user_data: |
+        #cloud-config
+        users:
+          - name: ubuntu
+            plain_text_passwd: ubuntu123
+            lock_passwd: false
+            shell: /bin/bash
+            sudo: ALL=(ALL) NOPASSWD:ALL
+        ssh_pwauth: true
+        disable_root: false
+      networks:
+        - network: ccd11-oam  
+          fixed_ip: 10.102.12.12
+      metadata: 
+        ha-policy: ha-offline  
+      block_device_mapping_v2:
+        - image: ccdadm-image-ubuntu-22.04
+          volume_size: 10
+          boot_index: 0
+          device_name: vda
+          delete_on_termination: true
