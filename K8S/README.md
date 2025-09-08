@@ -12,6 +12,12 @@ curl -o /etc/systemd/system/containerd.service \
   https://raw.githubusercontent.com/containerd/containerd/main/containerd.service
 systemctl daemon-reexec
 systemctl enable --now containerd
+mkdir -p /etc/systemd/system/kubelet.service.d 
+curl -sSL -o /etc/systemd/system/kubelet.service \
+  https://raw.githubusercontent.com/kubernetes/kubernetes/release-1.28.0/cluster/gce/gci/configure-helper.sh
+
+curl -sSL -o /etc/systemd/system/kubelet.service.d/10-kubeadm.conf \
+  https://raw.githubusercontent.com/kubernetes/kubernetes/release-1.28.0/cluster/gce/gci/configure-helper.sh
 
 
 ```
