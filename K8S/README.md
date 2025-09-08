@@ -14,10 +14,9 @@ systemctl daemon-reexec
 systemctl enable --now containerd
 mkdir -p /etc/systemd/system/kubelet.service.d 
 curl -sSL -o /etc/systemd/system/kubelet.service \
-  https://raw.githubusercontent.com/kubernetes/kubernetes/release-1.28.0/cluster/gce/gci/configure-helper.sh
-
+  https://raw.githubusercontent.com/wuqiang0720/blogs/refs/heads/main/K8S/kubelet.service
 curl -sSL -o /etc/systemd/system/kubelet.service.d/10-kubeadm.conf \
-  https://raw.githubusercontent.com/kubernetes/kubernetes/release-1.28.0/cluster/gce/gci/configure-helper.sh
+  https://raw.githubusercontent.com/wuqiang0720/blogs/refs/heads/main/K8S/10-kubeadm.conf
 
 
 ```
