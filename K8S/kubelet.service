@@ -1,0 +1,25 @@
+[Unit]
+Description=kubelet: The Kubernetes Node Agent
+Documentation=https://kubernetes.io/docs/home/
+After=network.target
+Wants=network-online.target
+Requires=containerd.service
+
+[Service]
+ExecStart=/usr/local/bin/kubelet $KUBELET_KUBEADM_ARGS $KUBELET_EXTRA_ARGS
+Restart=always
+RestartSec=10
+LimitNOFILE=1048576
+LimitNPROC=1048576
+LimitCORE=infinity
+TimeoutStartSec=0
+TimeoutStopSec=0
+KillMode=process
+KillSignal=SIGTERM
+Type=notify
+Delegate=yes
+OOMScoreAdjust=-999
+
+[Install]
+WantedBy=multi-user.target
+EOF
