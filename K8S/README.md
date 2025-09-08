@@ -10,13 +10,16 @@ tar Cxzvf /usr/local containerd-1.8.6-linux-amd64.tar.gz
 
 curl -o /etc/systemd/system/containerd.service \
   https://raw.githubusercontent.com/containerd/containerd/main/containerd.service
-systemctl daemon-reexec
-systemctl enable --now containerd
+
 mkdir -p /etc/systemd/system/kubelet.service.d 
 curl -sSL -o /etc/systemd/system/kubelet.service \
   https://raw.githubusercontent.com/wuqiang0720/blogs/refs/heads/main/K8S/kubelet.service
 curl -sSL -o /etc/systemd/system/kubelet.service.d/10-kubeadm.conf \
   https://raw.githubusercontent.com/wuqiang0720/blogs/refs/heads/main/K8S/10-kubeadm.conf
+
+systemctl daemon-reexec
+systemctl enable --now kubelet containerd
+systemctl restart kubelet
 
 
 ```
