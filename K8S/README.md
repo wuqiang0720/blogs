@@ -19,7 +19,7 @@ curl -sSL -o /etc/systemd/system/kubelet.service.d/10-kubeadm.conf \
 
 systemctl daemon-reexec
 systemctl enable --now kubelet containerd
-systemctl restart kubelet
+systemctl restart kubelet containerd
 
 
 sudo kubeadm init --pod-network-cidr=10.244.0.0/16 --cri-socket=unix:///var/run/dockershim.sock
