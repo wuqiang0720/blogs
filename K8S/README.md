@@ -21,8 +21,8 @@ apt install -y conntrack iptables ebtables ethtool socat
 curl -L https://cdn.dl.k8s.io/release/v1.28.2/bin/linux/amd64/kubeadm -o /usr/local/bin/kubeadm
 curl -L https://cdn.dl.k8s.io/release/v1.28.2/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl
 curl -L https://cdn.dl.k8s.io/release/v1.28.2/bin/linux/amd64/kubelet -o /usr/local/bin/kubelet
-curl -L https://github.com/containerd/containerd/releases/download/v1.6.28/cri-containerd-cni-1.6.28-linux-amd64.tar.gz -o /
-cd /;tar -xf containerd-1.6.28-linux-amd64.tar.gz 
+curl -LO https://github.com/containerd/containerd/releases/download/v1.6.28/cri-containerd-cni-1.6.28-linux-amd64.tar.gz
+tar -xzf cri-containerd-cni-1.6.28-linux-amd64.tar.gz -C /
 chmod +x /usr/local/bin/*
 
 
