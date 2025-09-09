@@ -47,4 +47,10 @@ sed -i 's|docker.io/calico|ghcr.io/wuqiang0720/calico|g' calico.yaml
 kubectl apply -f calico.yaml
 #10、Install metrics-server
 kubectl apply -f https://raw.githubusercontent.com/qiangwum/script/main/metrics-server.yaml
+#11、Install helm
+wget https://get.helm.sh/helm-v3.12.1-linux-amd64.tar.gz
+tar -zxvf helm-v3.12.1-linux-amd64.tar.gz
+mv linux-amd64/helm /usr/local/bin/helm
+helm version
+
 ```
