@@ -34,4 +34,11 @@ systemctl restart kubelet containerd
 #7、kubeadm Initation
 kubeadm init --kubernetes-version=v1.28.2 --apiserver-advertise-address=192.168.125.100 \
 --image-repository=registry.aliyuncs.com/google_containers --pod-network-cidr=10.244.0.0/16 --service-cidr=10.96.0.0/12
+#8、crictl env
+cat > /etc/crictl.yaml << EOF
+runtime-endpoint: unix:///run/containerd/containerd.sock
+image-endpoint: unix:///run/containerd/containerd.sock
+timeout: 10
+debug: false
+EOF
 ```
