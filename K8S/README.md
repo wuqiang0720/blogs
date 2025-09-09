@@ -1,5 +1,20 @@
 
 ```bash
+
+3、设置内核参数：
+root@k8s:~# cat > /etc/sysctl.d/k8s.conf << EOF
+net.ipv4.ip_forward = 1
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+vm.swappiness = 0
+EOF
+root@k8s:~# echo br_netfilter >> /etc/modules && modprobe br_netfilter
+root@k8s:~# sysctl --system
+4、关闭交换内存：
+root@k8s:~# swapoff -a
+root@k8s:~# sed -ir 's/.*swap/#&/g' /etc/fstab
+root@k8s:~# rm -Rf /swap.img
+root@k8s:~# free -m
 apt install -y conntrack iptables ebtables ethtool socat
 
 
