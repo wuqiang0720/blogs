@@ -45,6 +45,6 @@ EOF
 wget https://raw.githubusercontent.com/wuqiang0720/blogs/refs/heads/main/k8s/calico.yaml
 sed -i 's|docker.io/calico|ghcr.io/wuqiang0720/calico|g' calico.yaml
 kubectl apply -f calico.yaml
-#9、Install metrics-server
+#10、Install metrics-server
 kubectl apply -f https://raw.githubusercontent.com/qiangwum/script/main/metrics-server.yaml
 ```
