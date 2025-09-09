@@ -1,32 +1,33 @@
-
-下载插件(打开考试网址时会自动下载)：
-https://pluginsaddonsextensions.com/google-chrome/innovative-exams-screensh-chrome-extension_44580/download
-
----
-
-预约考试的网址->
-https://trainingportal.linuxfoundation.org/  
-
-看到所有已购买的课程和认证考试 购买课程的网址->
-https://training.linuxfoundation.cn/certificates/1  
-
-预约考试时间网址：https://www.examslocal.com/Candidate
-
----
-
-Tips网站：
-https://www.cxymm.net/article/zhengide/107668875
-https://blog.csdn.net/u011127242/article/details/113961971
-
-bilibili:
-https://www.bilibili.com/video/BV1vA411p77o?spm_id_from=333.999.0.0
-
-bbs：https://bbs.huaweicloud.com/blogs/detail/301628
-blogs:https://www.cnblogs.com/baiwanjin/p/13304173.html
-主要用的: https://blog.csdn.net/u011127242/category_10823035.html
-
-CKA考试环境预配：https://mp.weixin.qq.com/s/0VTVCojlFvqcFh_GnA5moA
-
----
-考试可访问界面：https://kubernetes.io/docs/home/
-
+```
+#1、设置内核参数：
+cat > /etc/sysctl.d/k8s.conf << EOF
+net.ipv4.ip_forward = 1
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+vm.swappiness = 0
+EOF
+echo br_netfilter >> /etc/modules && modprobe br_netfilter
+sysctl --system
+#2、关闭交换内存：
+swapoff -a
+sed -ir 's/.*swap/#&/g' /etc/fstab
+rm -Rf /swap.img
+free -m
+#3、装必要的一些系统工具
+apt-get update && apt-get -y install apt-transport-https ca-certificates curl software-properties-common apt-transport-https
+#4、安装GPG证书
+curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | gpg --dearmor -o /usr/share/keyrings/docker-aliyun.gpg
+mkdir /etc/apt/keyrings/
+curl -fsSL https://mirrors.aliyun.com/kubernetes-new/core/stable/v1.28/deb/Release.key |gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+#5、写入软件源信息
+add-apt-repository "deb [arch=amd64] https://mirrors.aliyun.com/docker-ce/linux/ubuntu $(lsb_release -cs) stable"
+echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://mirrors.aliyun.com/kubernetes-new/core/stable/v1.28/deb/ /"| sudo tee /etc/apt/sources.list.d/kubernetes.list
+#6、安装相关包
+apt-get update&& apt-get install -y containerd.io=1.6.28-2  kubelet kubeadm kubectl
+#6.1、修改配置问并备份
+containerd config default | tee /etc/containerd/config.toml
+sed -i.bak$(date +%Y%m%d%H%M) 's/^\(\s*SystemdCgroup\s*=\s*\).*$/\1true/' /etc/containerd/config.toml
+#7、kubeadm Initation
+kubeadm init --kubernetes-version=v1.28.2 --apiserver-advertise-address=192.168.125.100 \
+--image-repository=registry.aliyuncs.com/google_containers --pod-network-cidr=10.244.0.0/16 --service-cidr=10.96.0.0/12
+```
