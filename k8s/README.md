@@ -1,4 +1,4 @@
-```
+```bash
 #1、设置内核参数：
 cat > /etc/sysctl.d/k8s.conf << EOF
 net.ipv4.ip_forward = 1
@@ -27,6 +27,10 @@ apt-get update&& apt-get install -y containerd.io=1.6.28-2  kubelet kubeadm kube
 #6.1、修改配置问并备份
 containerd config default | tee /etc/containerd/config.toml
 sed -i.bak$(date +%Y%m%d%H%M) 's/^\(\s*SystemdCgroup\s*=\s*\).*$/\1true/' /etc/containerd/config.toml
+#6.2、设置开机自启并启动
+systemctl daemon-reexec
+systemctl enable --now kubelet containerd
+systemctl restart kubelet containerd
 #7、kubeadm Initation
 kubeadm init --kubernetes-version=v1.28.2 --apiserver-advertise-address=192.168.125.100 \
 --image-repository=registry.aliyuncs.com/google_containers --pod-network-cidr=10.244.0.0/16 --service-cidr=10.96.0.0/12
