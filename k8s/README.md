@@ -41,8 +41,10 @@ image-endpoint: unix:///run/containerd/containerd.sock
 timeout: 10
 debug: false
 EOF
-#9、install calico
+#9、Install calico
 wget https://raw.githubusercontent.com/wuqiang0720/blogs/refs/heads/main/k8s/calico.yaml
 sed -i 's|docker.io/calico|ghcr.io/wuqiang0720/calico|g' calico.yaml
 kubectl apply -f calico.yaml
+#9、Install metrics-server
+kubectl apply -f https://raw.githubusercontent.com/qiangwum/script/main/metrics-server.yaml
 ```
