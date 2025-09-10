@@ -51,6 +51,14 @@ kubectl apply -f calico.yaml
 #10、Install metrics-server
 kubectl taint nodes $(hostname) node-role.kubernetes.io/control-plane:NoSchedule-
 kubectl apply -f https://raw.githubusercontent.com/qiangwum/script/main/metrics-server.yaml
+
+# 创建数据目录
+mkdir -p /data/mariadb-node1 /data/mariadb-node2 /data/mariadb-node3
+# 修改属主为容器里运行的用户 1001
+chown -R 1001:1001 /data/mariadb-node1 /data/mariadb-node2 /data/mariadb-node3
+# 建议收紧权限
+chmod 700 /data/mariadb-node1 /data/mariadb-node2 /data/mariadb-node3
+
 #11、Install helm
 wget https://get.helm.sh/helm-v3.12.1-linux-amd64.tar.gz
 tar -zxvf helm-v3.12.1-linux-amd64.tar.gz
