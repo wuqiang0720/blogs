@@ -49,6 +49,7 @@ wget https://raw.githubusercontent.com/wuqiang0720/blogs/refs/heads/main/k8s/cal
 sed -i 's|docker.io/calico|ghcr.io/wuqiang0720/calico|g' calico.yaml
 kubectl apply -f calico.yaml
 #10、Install metrics-server
+kubectl taint nodes $(hostname) node-role.kubernetes.io/control-plane:NoSchedule-
 kubectl apply -f https://raw.githubusercontent.com/qiangwum/script/main/metrics-server.yaml
 #11、Install helm
 wget https://get.helm.sh/helm-v3.12.1-linux-amd64.tar.gz
