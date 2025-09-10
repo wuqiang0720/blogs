@@ -36,7 +36,7 @@ systemctl enable --now kubelet containerd
 systemctl restart kubelet containerd
 #7、kubeadm Initation
 kubeadm init --kubernetes-version=v1.28.2 --apiserver-advertise-address=192.168.125.100 \
---image-repository=registry.aliyuncs.com/google_containers --pod-network-cidr=192.168.1.0/24 --service-cidr=172.168.1.0/24
+--image-repository=registry.aliyuncs.com/google_containers --pod-network-cidr=10.244.0.0/16 --service-cidr=192.168.1.0/24
 #8、crictl env
 cat > /etc/crictl.yaml << EOF
 runtime-endpoint: unix:///run/containerd/containerd.sock
@@ -53,11 +53,9 @@ kubectl taint nodes $(hostname) node-role.kubernetes.io/control-plane:NoSchedule
 kubectl apply -f https://raw.githubusercontent.com/qiangwum/script/main/metrics-server.yaml
 
 # 创建数据目录
-mkdir -p /data/mariadb-node1 /data/mariadb-node2 /data/mariadb-node3
-# 修改属主为容器里运行的用户 1001
-chown -R 1001:1001 /data/mariadb-node1 /data/mariadb-node2 /data/mariadb-node3
+mkdir -p /mnt/data/mariadb-node1 /mnt/data/mariadb-node2 /mnt/data/mariadb-node3
 # 建议收紧权限
-chmod 700 /data/mariadb-node1 /data/mariadb-node2 /data/mariadb-node3
+chmod 700 /mnt/data/mariadb-node1 /mnt/data/mariadb-node2 /mnt/data/mariadb-node3
 
 #11、Install helm
 wget https://get.helm.sh/helm-v3.12.1-linux-amd64.tar.gz
