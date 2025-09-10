@@ -16,8 +16,7 @@ free -m
 #3、装必要的一些系统工具
 apt-get update && apt-get -y install apt-transport-https ca-certificates curl software-properties-common apt-transport-https
 #4、安装GPG证书
-curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | gpg --dearmor -o /usr/share/keyrings/docker-aliyun.gpg
-mkdir /etc/apt/keyrings/
+curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | gpg --dearmor | sudo tee /usr/share/keyrings/docker-aliyun.gpg > /dev/null && \
 curl -fsSL https://mirrors.aliyun.com/kubernetes-new/core/stable/v1.28/deb/Release.key |gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
 #5、写入软件源信息
 add-apt-repository "deb [arch=amd64] https://mirrors.aliyun.com/docker-ce/linux/ubuntu $(lsb_release -cs) stable"
