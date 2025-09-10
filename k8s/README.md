@@ -18,8 +18,13 @@ apt-get update && apt-get -y install apt-transport-https ca-certificates curl so
 #4、安装GPG证书
 curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | gpg --dearmor | sudo tee /usr/share/keyrings/docker-aliyun.gpg > /dev/null && \
 curl -fsSL https://mirrors.aliyun.com/kubernetes-new/core/stable/v1.28/deb/Release.key |gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+# 一键清理旧 key 并配置阿里云 Docker 源
+sudo rm -f /etc/apt/sources.list.d/docker.list && \
+sudo rm -f /etc/apt/trusted.gpg.d/docker-*.gpg && \
+curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | gpg --dearmor | sudo tee /usr/share/keyrings/docker-aliyun.gpg > /dev/null && \
+echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-aliyun.gpg] https://mirrors.aliyun.com/docker-ce/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null && \
+apt-get update
 #5、写入软件源信息
-add-apt-repository "deb [arch=amd64] https://mirrors.aliyun.com/docker-ce/linux/ubuntu $(lsb_release -cs) stable"
 echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://mirrors.aliyun.com/kubernetes-new/core/stable/v1.28/deb/ /"| sudo tee /etc/apt/sources.list.d/kubernetes.list
 #6、安装相关包
 apt-get update&& apt-get install -y containerd.io=1.6.28-2  kubelet kubeadm kubectl
