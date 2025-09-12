@@ -1,5 +1,6 @@
 ```bash
 #1、设置内核参数：
+echo "ubuntu ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 cat > /etc/sysctl.d/k8s.conf << EOF
 net.ipv4.ip_forward = 1
 net.bridge.bridge-nf-call-ip6tables = 1
