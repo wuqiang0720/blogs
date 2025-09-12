@@ -28,7 +28,7 @@ echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://mirro
 #6、安装相关包
 apt-get update&& apt-get install -y containerd.io=1.6.28-2  kubelet kubeadm kubectl
 #6.1、修改配置问并备份
-containerd config default | tee /etc/containerd/config.toml
+containerd config default > /etc/containerd/config.toml
 sed -i.bak$(date +%Y%m%d%H%M) 's/^\(\s*SystemdCgroup\s*=\s*\).*$/\1true/' /etc/containerd/config.toml
 #6.2、设置开机自启并启动
 systemctl daemon-reexec
