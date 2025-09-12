@@ -1,0 +1,146 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: galera
+---
+# StatefulSet Headless Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: mariadb-galera
+  namespace: galera
+spec:
+  clusterIP: None
+  selector:
+    app: mariadb
+  ports:
+  - name: mysql
+    port: 3306
+  - name: galera-repl
+    port: 4567
+  - name: galera-ist
+    port: 4568
+  - name: galera-sst
+    port: 4444
+---
+# StatefulSet
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mariadb
+  namespace: galera
+spec:
+  serviceName: mariadb-galera
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mariadb
+  template:
+    metadata:
+      labels:
+        app: mariadb
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: ubuntu
+      containers:
+      - name: mariadb
+        image: ghcr.io/wuqiang0720/mariadb-galera:10.5data
+        ports:
+        - containerPort: 3306
+        - containerPort: 4567
+        - containerPort: 4568
+        - containerPort: 4444
+        env:
+        - name: MARIADB_ROOT_PASSWORD
+          value: "123456"
+        - name: MARIADB_GALERA_CLUSTER_NAME
+          value: "galera-cluster"
+        - name: MARIADB_GALERA_CLUSTER_ADDRESS
+          value: "gcomm://mariadb-0.mariadb-galera.galera.svc.cluster.local,mariadb-1.mariadb-galera.galera.svc.cluster.local,mariadb-2.mariadb-galera.galera.svc.cluster.local"
+        - name: MARIADB_GALERA_NODE_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: MARIADB_GALERA_NODE_ADDRESS
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+        - name: MARIADB_GALERA_MARIABACKUP_PASSWORD
+          value: "backup123"
+        - name: MARIADB_GALERA_CLUSTER_BOOTSTRAP
+          value: "yes"
+#          valueFrom:
+#            fieldRef:
+#              fieldPath: metadata.name   # 仅 mariadb-0 Pod 会是 mariadb-0
+        volumeMounts:
+        - name: mariadb-data
+          mountPath: /var/lib/mysql
+  volumeClaimTemplates:
+  - metadata:
+      name: mariadb-data
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      resources:
+        requests:
+          storage: 5Gi
+      storageClassName: "local-path"       # 空 StorageClass 使用 hostPath
+---
+# LB Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: mariadb-lb
+  namespace: galera
+spec:
+  type: ClusterIP
+  selector:
+    app: mariadb
+  ports:
+  - port: 3306
+    targetPort: 3306
+---
+# phpMyAdmin Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: phpmyadmin
+  namespace: galera
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: phpmyadmin
+  template:
+    metadata:
+      labels:
+        app: phpmyadmin
+    spec:
+      containers:
+      - name: phpmyadmin
+        image: ghcr.io/wuqiang0720/phpmyadmin:latest
+        ports:
+        - containerPort: 80
+        env:
+        - name: PMA_HOST
+          value: "mariadb-lb.galera.svc.cluster.local"
+        - name: PMA_PORT
+          value: "3306"
+        - name: MYSQL_ROOT_PASSWORD
+          value: "123456"
+---
+# phpMyAdmin NodePort Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: phpmyadmin
+  namespace: galera
+spec:
+  type: NodePort
+  selector:
+    app: phpmyadmin
+  ports:
+  - port: 80
+    targetPort: 80
+    nodePort: 30080
+
