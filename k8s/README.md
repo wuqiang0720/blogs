@@ -43,7 +43,7 @@ kubeadm init --kubernetes-version=v1.28.2 --apiserver-advertise-address=192.168.
 crictl config runtime-endpoint unix:///var/run/containerd/containerd.sock
 crictl config image-endpoint unix:///var/run/containerd/containerd.sock
 #9、Install the below pod
-kubectl taint nodes $(hostname) node-role.kubernetes.io/control-plane:NoSchedule-
+kubectl taint nodes $(hostname) node-role.kubernetes.io/control-plane:NoSchedule-     ##因为只有一个master所以需要接触这个node的taint
 kubectl apply -f https://raw.githubusercontent.com/wuqiang0720/blogs/refs/heads/main/k8s/yaml/calico.yaml
 kubectl apply -f https://raw.githubusercontent.com/wuqiang0720/blogs/refs/heads/main/k8s/yaml/metrics-server.yaml
 kubectl apply -f https://raw.githubusercontent.com/wuqiang0720/blogs/refs/heads/main/k8s/yaml/local-path-storage.yaml
