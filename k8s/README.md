@@ -39,12 +39,8 @@ systemctl restart kubelet containerd
 kubeadm init --kubernetes-version=v1.28.2 --apiserver-advertise-address=192.168.125.100 \
 --image-repository=registry.aliyuncs.com/google_containers --service-cidr=192.168.1.0/24
 #8、crictl env
-cat > /etc/crictl.yaml << EOF
-runtime-endpoint: unix:///run/containerd/containerd.sock
-image-endpoint: unix:///run/containerd/containerd.sock
-timeout: 10
-debug: false
-EOF
+crictl config runtime-endpoint unix:///var/run/containerd/containerd.sock
+crictl config image-endpoint unix:///var/run/containerd/containerd.sock
 #9、Install the below pod
 kubectl taint nodes $(hostname) node-role.kubernetes.io/control-plane:NoSchedule-
 kubectl apply -f https://raw.githubusercontent.com/wuqiang0720/blogs/refs/heads/main/k8s/yaml/calico.yaml
