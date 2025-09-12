@@ -52,6 +52,7 @@ kubectl apply -f https://raw.githubusercontent.com/wuqiang0720/blogs/refs/heads/
 kubectl apply -f https://raw.githubusercontent.com/wuqiang0720/blogs/refs/heads/main/k8s/yaml/metallb-ipconfig.yaml
 kubectl apply -f https://raw.githubusercontent.com/wuqiang0720/blogs/refs/heads/main/k8s/yaml/openldap.yaml
 kubectl apply -f https://raw.githubusercontent.com/wuqiang0720/blogs/refs/heads/main/k8s/yaml/mariadb-galera.yaml
+kubectl apply -f https://raw.githubusercontent.com/wuqiang0720/blogs/refs/heads/main/k8s/yaml/dashboard.yaml
 #11、Install helm
 wget https://get.helm.sh/helm-v3.12.1-linux-amd64.tar.gz
 tar -zxvf helm-v3.12.1-linux-amd64.tar.gz
