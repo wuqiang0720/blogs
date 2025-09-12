@@ -129,7 +129,7 @@ spec:
         - name: MYSQL_ROOT_PASSWORD
           value: "123456"
 ---
-# phpMyAdmin NodePort Service
+# phpMyAdmin LoadBalancer Service
 apiVersion: v1
 kind: Service
 metadata:
