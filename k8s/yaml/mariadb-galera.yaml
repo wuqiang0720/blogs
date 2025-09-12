@@ -136,7 +136,7 @@ metadata:
   name: phpmyadmin
   namespace: galera
 spec:
-  type: NodePort
+  type: LoadBalancer
   selector:
     app: phpmyadmin
   ports:
