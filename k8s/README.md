@@ -28,6 +28,9 @@ apt-get update&& apt-get install -y containerd.io=1.6.28-2  kubelet kubeadm kube
 #6.1、修改配置问并备份
 containerd config default > /etc/containerd/config.toml
 sed -i.bak$(date +%Y%m%d%H%M) 's/^\(\s*SystemdCgroup\s*=\s*\).*$/\1true/' /etc/containerd/config.toml
+sed -i.bak$(date +%Y%m%d%H%M) \
+    's|^\(\s*sandbox_image\s*=\s*\).*|\1"registry.aliyuncs.com/google_containers/pause:3.9"|' \
+    /etc/containerd/config.toml
 # sed -i.bak$(date +%Y%m%d%H%M) 's/^\(\s*systemd_cgroup\s*=\s*\).*$/\1true/' /etc/containerd/config.toml
 #6.2、设置开机自启并启动
 systemctl daemon-reexec
