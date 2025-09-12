@@ -37,6 +37,7 @@ metadata:
   name: kubernetes-dashboard
   namespace: kubernetes-dashboard
 spec:
+  type: LoadBalancer   # <--- 添加这一行
   ports:
     - port: 443
       targetPort: 8443
