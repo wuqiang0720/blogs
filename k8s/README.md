@@ -18,14 +18,12 @@ free -m
 apt-get update && apt-get -y install apt-transport-https ca-certificates curl software-properties-common apt-transport-https
 #4、安装GPG证书
 curl -fsSL https://mirrors.aliyun.com/kubernetes-new/core/stable/v1.28/deb/Release.key |gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
-# 一键清理旧 key 并配置阿里云 Docker 源
-curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | gpg --dearmor | sudo tee /usr/share/keyrings/docker-aliyun.gpg > /dev/null && \
-echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-aliyun.gpg] https://mirrors.aliyun.com/docker-ce/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null && \
-apt-get update
 #5、写入软件源信息
 echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://mirrors.aliyun.com/kubernetes-new/core/stable/v1.28/deb/ /"| sudo tee /etc/apt/sources.list.d/kubernetes.list
 #6、安装相关包
-apt-get update&& apt-get install -y containerd.io=1.6.28-2  kubelet kubeadm kubectl
+curl -LO https://github.com/containerd/containerd/releases/download/v1.6.28/cri-containerd-cni-1.6.28-linux-amd64.tar.gz
+tar -xzf cri-containerd-cni-1.6.28-linux-amd64.tar.gz -C /
+apt-get update&& apt-get install -y kubelet kubeadm kubectl
 #6.1、修改配置问并备份
 containerd config default > /etc/containerd/config.toml
 sed -i.bak$(date +%Y%m%d%H%M) 's/^\(\s*SystemdCgroup\s*=\s*\).*$/\1true/' /etc/containerd/config.toml
@@ -38,7 +36,7 @@ systemctl daemon-reexec
 systemctl enable --now kubelet containerd
 systemctl restart kubelet containerd
 #7、kubeadm Initation
-kubeadm init --kubernetes-version=v1.28.2 --apiserver-advertise-address=192.168.125.100 \
+kubeadm init --kubernetes-version=$(kubeadm version -o short) --apiserver-advertise-address=192.168.125.100 \
 --image-repository=registry.aliyuncs.com/google_containers --service-cidr=192.168.1.0/24
 #8、crictl env
 crictl config runtime-endpoint unix:///var/run/containerd/containerd.sock
