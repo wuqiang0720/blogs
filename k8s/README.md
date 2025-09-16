@@ -39,6 +39,9 @@ systemctl restart kubelet containerd
 #7、kubeadm Initation
 kubeadm init --kubernetes-version=$(kubeadm version -o short) --apiserver-advertise-address=192.168.125.100 \
 --image-repository=registry.aliyuncs.com/google_containers --service-cidr=192.168.1.0/24
+######################## 
+##  kubeadm reset -f  ##
+######################## 
 #8、crictl env
 crictl config runtime-endpoint unix:///var/run/containerd/containerd.sock
 crictl config image-endpoint unix:///var/run/containerd/containerd.sock
