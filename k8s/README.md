@@ -25,6 +25,7 @@ curl -LO https://github.com/containerd/containerd/releases/download/v1.6.28/cri-
 tar -xzf cri-containerd-cni-1.6.28-linux-amd64.tar.gz -C /
 apt-get update&& apt-get install -y kubelet kubeadm kubectl
 #6.1、修改配置问并备份
+mkdir /etc/containerd
 containerd config default > /etc/containerd/config.toml
 sed -i.bak$(date +%Y%m%d%H%M) 's/^\(\s*SystemdCgroup\s*=\s*\).*$/\1true/' /etc/containerd/config.toml
 sed -i.bak$(date +%Y%m%d%H%M) \
