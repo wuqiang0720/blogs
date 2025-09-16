@@ -1,7 +1,7 @@
 
 ```bash
 
-3、设置内核参数：
+#3、设置内核参数：
 cat > /etc/sysctl.d/k8s.conf << EOF
 net.ipv4.ip_forward = 1
 net.bridge.bridge-nf-call-ip6tables = 1
@@ -10,7 +10,7 @@ vm.swappiness = 0
 EOF
 echo br_netfilter >> /etc/modules && modprobe br_netfilter
 sysctl --system
-4、关闭交换内存：
+#4、关闭交换内存：
 swapoff -a
 sed -ir 's/.*swap/#&/g' /etc/fstab
 rm -Rf /swap.img
