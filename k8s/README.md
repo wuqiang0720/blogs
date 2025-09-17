@@ -44,8 +44,8 @@ kubeadm init --kubernetes-version=$(kubeadm version -o short) --apiserver-advert
 ##  kubeadm reset -f  ##
 ######################## 
 #8、crictl env
-crictl config runtime-endpoint unix:///var/run/containerd/containerd.sock
-crictl config image-endpoint unix:///var/run/containerd/containerd.sock
+# crictl config runtime-endpoint unix:///var/run/containerd/containerd.sock
+# crictl config image-endpoint unix:///var/run/containerd/containerd.sock
 #9、Install the below pod
 kubectl taint nodes $(hostname) node-role.kubernetes.io/control-plane:NoSchedule-     ##因为只有一个master所以需要接触这个node的taint
 kubectl apply -f https://raw.githubusercontent.com/wuqiang0720/blogs/refs/heads/main/k8s/yaml/calico.yaml
