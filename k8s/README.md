@@ -17,9 +17,10 @@ free -m
 #3、装必要的一些系统工具
 apt-get update && apt-get -y install apt-transport-https ca-certificates curl software-properties-common apt-transport-https
 #4、安装GPG证书
-curl -fsSL https://mirrors.aliyun.com/kubernetes-new/core/stable/v1.28/deb/Release.key |gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+version=v1.28
+curl -fsSL https://mirrors.aliyun.com/kubernetes-new/core/stable/$(version)/deb/Release.key |gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
 #5、写入软件源信息
-echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://mirrors.aliyun.com/kubernetes-new/core/stable/v1.28/deb/ /"| sudo tee /etc/apt/sources.list.d/kubernetes.list
+echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://mirrors.aliyun.com/kubernetes-new/core/stable/$(version)/deb/ /"| sudo tee /etc/apt/sources.list.d/kubernetes.list
 #6、安装containerd
 # curl -LO https://github.com/containerd/containerd/releases/download/v1.6.28/cri-containerd-cni-1.6.28-linux-amd64.tar.gz
 tar -xzf /home/ubuntu/cri-containerd-cni-1.6.28-linux-amd64.tar.gz -C /
