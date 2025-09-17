@@ -56,6 +56,8 @@ kubectl apply -f https://raw.githubusercontent.com/wuqiang0720/blogs/refs/heads/
 kubectl apply -f https://raw.githubusercontent.com/wuqiang0720/blogs/refs/heads/main/k8s/yaml/openldap.yaml
 kubectl apply -f https://raw.githubusercontent.com/wuqiang0720/blogs/refs/heads/main/k8s/yaml/mariadb-galera.yaml
 kubectl apply -f https://raw.githubusercontent.com/wuqiang0720/blogs/refs/heads/main/k8s/yaml/dashboard.yaml
+kubectl apply -f https://raw.githubusercontent.com/metal3-io/baremetal-operator/refs/heads/main/config/base/crds/bases/metal3.io_baremetalhosts.yaml
+
 #11、Install helm
 wget https://get.helm.sh/helm-v3.12.1-linux-amd64.tar.gz
 tar -zxvf helm-v3.12.1-linux-amd64.tar.gz
