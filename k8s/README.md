@@ -20,7 +20,7 @@ apt-get update && apt-get -y install apt-transport-https ca-certificates curl so
 version=v1.28
 curl -fsSL https://mirrors.aliyun.com/kubernetes-new/core/stable/$(version)/deb/Release.key |gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
 #5、写入软件源信息
-echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://mirrors.aliyun.com/kubernetes-new/core/stable/$(version)/deb/ /"| sudo tee /etc/apt/sources.list.d/kubernetes.list
+echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://mirrors.aliyun.com/kubernetes-new/core/stable/$(version)/deb/ /"| tee /etc/apt/sources.list.d/kubernetes.list
 #6、安装containerd
 # curl -LO https://github.com/containerd/containerd/releases/download/v1.6.28/cri-containerd-cni-1.6.28-linux-amd64.tar.gz
 tar -xzf /home/ubuntu/cri-containerd-cni-1.6.28-linux-amd64.tar.gz -C /
@@ -30,7 +30,7 @@ mkdir /etc/containerd
 containerd config default > /etc/containerd/config.toml
 sed -i.bak$(date +%Y%m%d%H%M) 's/^\(\s*SystemdCgroup\s*=\s*\).*$/\1true/' /etc/containerd/config.toml
 sed -i.bak$(date +%Y%m%d%H%M) \
-    's|^\(\s*sandbox_image\s*=\s*\).*|\1"registry.aliyuncs.com/google_containers/pause:3.9"|' \
+    's|^\(\s*sandbox_image\s*=\s*\).*|\1"registry.aliyuncs.com/google_containers/pause:3.10"|' \
     /etc/containerd/config.toml
 # sed -i.bak$(date +%Y%m%d%H%M) 's/^\(\s*systemd_cgroup\s*=\s*\).*$/\1true/' /etc/containerd/config.toml
 #6.2、设置开机自启并启动
