@@ -63,5 +63,24 @@ wget https://get.helm.sh/helm-v3.12.1-linux-amd64.tar.gz
 tar -zxvf helm-v3.12.1-linux-amd64.tar.gz
 mv linux-amd64/helm /usr/local/bin/helm
 helm version
+#12、BGP configuration
+ip link add macvlan-shim link eth0 type macvlan mode bridge
+ip addr add 192.168.1.1/24 dev macvlan-shim
+ip link set macvlan-shim up
 
+docker network create -d macvlan --subnet=192.168.1.0/24 --gateway=192.168.1.1 -o parent=macvlan-shim frr-macvlan
+docker run -d --name r1 --network frr-macvlan --ip 192.168.1.100 --privileged ghcr.io/wuqiang0720/frrouting/frr:latest
+docker exec -it r1 ip addr add 10.100.98.1/24 dev eth0
+docker exec -it r1 vtysh
+
+configure terminal
+router bgp 65001
+ bgp router-id 192.168.1.100
+ neighbor 192.168.1.1 remote-as 65002
+ address-family ipv4 unicast
+  network 10.100.98.0/24
+ exit-address-family
+exit
+exit
+write
 ```
